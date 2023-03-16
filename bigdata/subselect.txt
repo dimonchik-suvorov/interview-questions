@@ -1,0 +1,57 @@
+Task 1.
+
+Source data could be either Parquet file with columns or a simpler version - plain column with 3 columns:
+    - event_type long (Possible values 1..100)
+    - duration int (Example 12, 0)
+  Partition:
+    - ds string (Example: "2020-01-01")
+    
+  Location: s3a://warehouse/customers_types
+                                     => ds="2019-01-01"
+                                     => ds="2019-01-02"
+                                     => .............
+*/
+
+/* Tasks:
+  1. For data in the last available day, Find average duration per event_type (in case of Parquet: and save to s3a://warehouse/customers_event_types_avg)
+  2. Find event_type with the max average duration for the last available day (and print to console)
+*/
+
+
+======|||||=======
+
+Task 2.
+
+We have a table that contains data for last 3 years:
+
+users_activities(
+    ds string,              -- (format of value '2020-10-10')
+    id integer,
+    operation_id integer,   -- see dict_operations for list of id
+    item_id integer,
+    ammount double,         -- + (buy) or - (return) $$$$$$$ price dictitems
+    country string          -- Ukraine, USA etc. separate dict for country
+)
+
+dict_operations(
+    id integer,
+    name string -- two values possible "buy" or "return"
+)
+
+dict_items(
+    id integer,
+    name string -- TV, laptop etc.
+)
+
+Task:
+1. Create daily report: 
+   Top 10 items with the largest sum(ammount) for country with smallest number of return operation for last 10 day
+
+
+======|||||=======
+
+Questions:
+
+ - Explain what was the query of https://miro.medium.com/max/1400/1*DBazdWEmxcmOxCfBHKC-1Q.png
+ - How to filter query results by null column value?
+ - reduceByKey vs groupByKey
